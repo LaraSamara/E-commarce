@@ -1,0 +1,13 @@
+import { Router } from "express";
+import * as orderController  from './controller/order.controller.js';
+import { asyncHandller } from "../../services/errorHandling.js";
+import { auth } from "../../middleware/auth.middleware.js";
+import { endpoints } from "./order.endpoint.js";
+import { validation } from "../../middleware/validation.middleware.js";
+import * as validators from './order.validation.js';
+const router = Router();
+router.post('/',auth(endpoints.create),validation(validators.createOrderSchema),asyncHandller(orderController.createOrder));
+router.post('/addAllFromCart',auth(endpoints.create),validation(validators.addAllFromCartSchema),asyncHandller(orderController.addAllFromCart));
+router.patch('/:orderId',auth(endpoints.cancel),validation(validators.cancelOrderSchema),asyncHandller(orderController.cancelOrder));
+router.patch('/changeStatus/:orderId',auth(endpoints.changeStatus),validation(validators.changeStatusSchema),asyncHandller(orderController.changeStatus));
+export default router;

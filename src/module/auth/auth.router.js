@@ -1,0 +1,13 @@
+import { Router } from "express";
+import * as authController from './controller/auth.controller.js';
+import { asyncHandller } from "../../services/errorHandling.js";
+import { validation } from "../../middleware/validation.middleware.js";
+import * as validators from "./auth.validation.js";
+const router = Router();
+router.post('/signup',validation(validators.signupSchema),asyncHandller(authController.signup));
+router.get('/confirmEmail/:token',validation(validators.token),asyncHandller(authController.confirmEmail));
+router.get('/newConfirmEmail/:token',validation(validators.token),asyncHandller( authController.newConfirmEmail));
+router.post('/signin',validation(validators.signinSchema),asyncHandller(authController.signin));
+router.patch('/sendCode',validation(validators.sendCodeSchema),authController.sendCode);
+router.patch('/forgetPassword',validation(validators.forgetPasswordSchema),authController.forgetPassword);
+export default router;

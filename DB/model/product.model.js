@@ -1,0 +1,87 @@
+import mongoose, { Schema, Types, model } from "mongoose";
+const productSchema = new Schema({
+    name:{
+        type:String,
+        required:true,
+        unique:true,
+        trim:true
+    },
+    slug:{
+        type:String,
+        required:true
+    },
+    description:{
+        type:String,
+        required:true
+    },
+    price:{
+        type:Number,
+        required:true,
+        default:1
+    },
+    discount:{
+        type:Number,
+        default:0
+    },
+    finalPrice:{
+        type:Number,
+        default:1
+    },
+    stock:{
+        type:Number,
+        default:1
+    },
+    size:[{
+        type:String,
+        enum:['S','M','L','XL']
+    }],
+    colors:[{
+        type:String
+    }],
+    mainImage:{
+        type:Object,
+        required:true
+    },
+    subImages:[{
+        type:Object
+    }],
+    categoryId:{
+        type:Types.ObjectId,
+        ref:'Category',
+        required:true
+    },
+    subCategoryId:{
+        type:Types.ObjectId,
+        ref:'Subcategory',
+        required:true
+    },
+    brandId:{
+        type:Types.ObjectId,
+        ref:'Brand',
+        required:true
+    },
+    createdBy:{
+        type:Types.ObjectId,
+        ref:'User',
+        required:true
+    },
+    updatedBy:{
+        type:Types.ObjectId,
+        required:true,
+        ref:'User'
+    },
+    isDeleted:{
+        type:Boolean,
+        default:false
+    }
+},{timestamps:true,
+toJSON:{virtuals:true},
+toObject:{virtuals:true}
+});
+productSchema.virtual('review',{
+    localField:"_id",
+    foreignField:"productId",
+    ref:'Review'
+});
+const productModel = mongoose.models.Product || model('Product',productSchema);
+export default productModel;

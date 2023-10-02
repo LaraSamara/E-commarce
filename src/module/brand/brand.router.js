@@ -1,0 +1,13 @@
+import { Router } from "express";
+import * as brandController from './controller/brand.controller.js';
+import * as validators from './brand.validation.js';
+import { asyncHandller } from "../../services/errorHandling.js";
+import { fileUpload, fileValidation } from "../../services/cloudinaryMulter.js";
+import { validation } from "../../middleware/validation.middleware.js";
+import { auth } from "../../middleware/auth.middleware.js";
+import { endpoints } from "./brand.endpoint.js";
+const router = Router();
+router.post('/',auth(endpoints.create),fileUpload(fileValidation.image).single('image'),validation(validators.createBrand),asyncHandller(brandController.createBrand));
+router.get('/:categoryId',auth(endpoints.get),validation(validators.getAllBrand),asyncHandller(brandController.getAllBrand));
+router.put('/:brandId',auth(endpoints.update),fileUpload(fileValidation.image).single('image'),asyncHandller(brandController.updateBrand));
+export default router;
