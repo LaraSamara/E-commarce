@@ -23,6 +23,9 @@ export const initApp =(express,app)=>{
     connectDB();
     app.use(cors());
     app.use(express.json());
+    app.get('/',(req,res)=>{
+        return res.json({message:'Hello....!!'});
+    });
     app.use('/auth',authRouter);
     app.use('/category',categoryRouter);
     app.use('/subcategory',subcategoryRouter);

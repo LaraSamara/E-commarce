@@ -23,7 +23,7 @@ export const confirmEmail =async (req,res,next)=>{
     if(!email){
         return next(new error('invalid token ',{cause:400}));
     }
-    const user = await userModel.updateOne({email},{confirmEmail:"true"});
+    const user = await userModel.updateOne({email},{confirmEmail:true});
     if(user.modifiedCount == 0){
         return next(new Error('not regesterd account',{cause:404}));
     }
@@ -43,7 +43,7 @@ export const newConfirmEmail =async (req,res,next)=>{
         return res.status(200).json({message:"email is confirmed"});
     }
     const token = generateToken({email},process.env.EMAIL_SIGNITURE);
-    const link = `http://localhost:3000/auth/confirmEmail/${token}`;
+    const link = `${req.protocol}://${req.headers.host}/auth/confirmEmail/${token}`;
     const HTML = `<a href ="${link}">VERIFY YOUR EMAIL</a>`;
     sendEmail(email,"confirm your email",HTML); 
     return res.status(200).json({message:"<p>new email is send</p>"});

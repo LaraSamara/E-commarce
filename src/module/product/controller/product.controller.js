@@ -109,6 +109,7 @@ export const updateProduct =async (req,res,next)=>{
         }
         product.subImages = subImages;
     }
+    product.updatedBy=req.user._id;
     await product.save();
     return res.status(200).json({message:"success",product});
 }    
