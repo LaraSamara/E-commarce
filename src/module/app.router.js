@@ -8,10 +8,8 @@ import { globalErrorHandller } from "../services/errorHandling.js";
 import productRouter from './product/product.router.js';
 import cartRouter from './cart/cart.router.js';
 import orderRouter from './order/order.router.js';
-import cors from 'cors';
 export const initApp =(express,app)=>{
     connectDB();
-    app.use(cors());
     app.use(express.json());
     app.get('/',(req,res)=>{
         return res.json({message:'Hello....!!'});
