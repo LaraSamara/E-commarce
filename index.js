@@ -5,5 +5,4 @@ import { initApp } from "./src/module/app.router.js";
 const port = process.env.PORT||3000;
 const app = express();
 initApp(express,app);
-app.listen(port,()=>{
-});
+app.listen(port);
