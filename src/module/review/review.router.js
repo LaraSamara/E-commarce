@@ -5,6 +5,6 @@ import { endpoints } from "./review.endpoint.js";
 import { validation } from "../../middleware/validation.middleware.js";
 import * as validators from './review.validation.js';
 const router = Router({mergeParams:true});
-router.post('/',auth(endpoints.create),validation(validators.createReviewSchema),reviewController.createReview);
+router.post('/:productId',auth(endpoints.create),validation(validators.createReviewSchema),reviewController.createReview);
 router.post('/:reviewId',auth(endpoints.create),validation(validators.updateReviewSchema),reviewController.updateReview);
 export default router;

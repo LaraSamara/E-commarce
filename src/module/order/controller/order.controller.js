@@ -62,11 +62,11 @@ const invoice = {
 shipping: {
     name:req.user.userName.toUpperCase(),
     address
-  },
-  items:order.products,
-  subtotal: order.subtotal,
-  paid: order.finalPrice,
-  invoice_nr:order._id
+},
+items:order.products,
+subtotal: order.subtotal,
+paid: order.finalPrice,
+invoice_nr:order._id
 };
 createInvoice(invoice, "invoice.pdf");
 sendEmail(req.user.email,'invoice attachment',`<h2>Invoice attachment</h2>`,{

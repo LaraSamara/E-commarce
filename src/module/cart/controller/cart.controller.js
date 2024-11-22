@@ -30,7 +30,7 @@ export const addToCart =async(req,res,next)=>{
 }
 export const removeProductFromCart= async(req,res,next)=>{
     const {productId} =req.body;
-    const cart = await cartModel.findOneAndUpdate({userId:req.user._id},{$pull:{products:{productId}}});
+    const cart = await cartModel.findOneAndUpdate({userId:req.user._id},{$pull:{products:{productId}}},{new:true});
     return res.json({message:"success",cart});
 }
 export const clearCart = async(req,res,next)=>{

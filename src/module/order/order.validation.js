@@ -22,7 +22,7 @@ export const cancelOrderSchema=joi.object({
     orderId:generalFailed.id,
     rejectReason:joi.string()
 }).required();
-export const changeStatusSchema=joi.object({
+export const changeStatusSchema=joi.object({ 
     status:joi.string().required(),
     orderId:generalFailed.id
 }).required();
